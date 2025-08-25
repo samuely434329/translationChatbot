@@ -1,0 +1,196 @@
+body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .message-input {
+            width: 600px;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #333;
+            color: #e0e0e0;
+            font-size: 16px;
+        }
+        /* Sidebar for chat history */
+        .sidebar {
+            width: 250px;
+            background-color: #1e1e1e;
+            border-right: 1px solid #333;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #bbb;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            color: #e0e0e0;
+        }
+
+        .sidebar li:hover {
+            background-color: #333;
+        }
+
+        .new-chat {
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        /* chat area */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #1e1e1e;
+            padding: 10px 20px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #bb86fc; 
+            margin: 0;
+        }
+
+        .chat-area {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #121212;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            max-width: 80%;
+        }
+
+        .user-message {
+            margin-left: auto;
+            background-color: #2a2a2a;
+            padding: 10px 15px;
+            border-radius: 20px 20px 0 20px;
+            color: #e0e0e0;
+        }
+
+        .ai-message {
+            background-color: #1e1e1e;
+            padding: 10px 15px;
+            border-radius: 20px 20px 20px 0;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            color: #e0e0e0;
+        }
+
+        .ai-message::before {
+            content: "Tutor";
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #bbb;
+        }
+
+        /* where user inputs message */
+        .input-area {
+            background-color: #1e1e1e;
+            padding: 10px 20px;
+            border-top: 1px solid #333;
+            display: flex;
+            align-items: center;
+        }
+        .chat-form {
+            width: 600px;
+            display: flex;
+            width: 100%;
+            align-items: center;
+        }
+        .input-container {
+            width: 600px;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background-color: #333;
+            border-radius: 30px;
+            padding: 10px;
+        }
+
+        .input-container input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 16px;
+            color: #e0e0e0;
+        }
+
+        .input-container input::placeholder {
+            color: #888;
+        }
+
+        .icon {
+            cursor: pointer;
+            margin: 0 10px;
+            font-size: 20px;
+            color: #aaa;
+        }
+
+        .send-btn {
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .language-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .language-select-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 5px; 
+        } 
+        label[for =language-select] {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 5px; 
+        } 
+        /* .language-select-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;    
+            justify-content: center; 
+            text-align: center;
+            width: 100%;
+        } */

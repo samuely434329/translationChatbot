@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>language Tutor</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <button class="new-chat" id = current-language>Current language: Not specified</button>
+        <h2>recent chats</h2>
+        <ul>
+            <li>Chat 1</li>
+            <li>Chat 2</li>
+            <li>Chat 3</li>
+        </ul>
+    </aside>
+
+    <section class="main">
+        <header class="header">
+            <h1>Language Tutor</h1>
+        </header>
+
+        <div class="chat-area" id="chat-area">
+            <div class="message ai-message">
+                Hello! input your message and I will help you with your language learning.
+            </div>
+        </div>
+
+        <div class="input-area">
+            <div class="input-container">
+                <form method = "POST" id = "language-form" action="/set_language">
+                    <label style="display:block; width:fit-content; margin:0 auto;" for="language-select">Select Language:</label>
+                    <div class = "language-select-container">
+                        <select id="language-select" name="language">
+                            <option value="Arabic">Arabic</option>
+                            <option value="Bengali">Bengali</option>
+                            <option value="Bhojpuri">Bhojpuri</option>
+                            <option value="Chinese">Chinese (Mandarin)</option>
+                            <option value="Dutch">Dutch</option>
+                            <option value="English">English</option>
+                            <option value="Farsi">Farsi (Persian)</option>
+                            <option value="French">French</option>
+                            <option value="German">German</option>
+                            <option value="Gujarati">Gujarati</option>
+                            <option value="Hausa">Hausa</option>
+                            <option value="Hindi">Hindi</option>
+                            <option value="Igbo">Igbo</option>
+                            <option value="Indonesian">Indonesian</option>
+                            <option value="Italian">Italian</option>
+                            <option value="Japanese">Japanese</option>
+                            <option value="Javanese">Javanese</option>
+                            <option value="Kannada">Kannada</option>
+                            <option value="Korean">Korean</option>
+                            <option value="Malay">Malay</option>
+                            <option value="Malayalam">Malayalam</option>
+                            <option value="Marathi">Marathi</option>
+                            <option value="Odia">Odia (Oriya)</option>
+                            <option value="Polish">Polish</option>
+                            <option value="Portuguese">Portuguese</option>
+                            <option value="Punjabi">Punjabi</option>
+                            <option value="Romanian">Romanian</option>
+                            <option value="Russian">Russian</option>
+                            <option value="Sindhi">Sindhi</option>
+                            <option value="Spanish">Spanish</option>
+                            <option value="Swahili">Swahili</option>
+                            <option value="Tamil">Tamil</option>
+                            <option value="Telugu">Telugu</option>
+                            <option value="Thai">Thai</option>
+                            <option value="Turkish">Turkish</option>
+                            <option value="Ukrainian">Ukrainian</option>
+                            <option value="Urdu">Urdu</option>
+                            <option value="Vietnamese">Vietnamese</option>
+                            <option value="Yoruba">Yoruba</option>
+                            </select>
+                        <button type="submit">Select</button>
+                    </div>
+                </form>
+
+                <form id="chat-form" class = "chat-form" autocomplete="off">
+                    <input style = "margin-left: 15px;" id="message-input" type="text" name="message" placeholder="enter message" required>
+                    <button class="send-btn" type="submit">➤</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+<script>
+document.getElementById('chat-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const input = document.getElementById('message-input');
+    const text = input.value.trim();
+    if (!text) return;
+
+    const chatArea = document.getElementById('chat-area');
+
+    //appends user message to chat area
+    const userDiv = document.createElement('div');
+    userDiv.className = 'message user-message';
+    userDiv.textContent = text;
+    chatArea.appendChild(userDiv);
+    chatArea.scrollTop = chatArea.scrollHeight;
+
+    input.value = '';
+    input.disabled = true;
+
+    try {
+        const res = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: text })
+        });
+        const data = await res.json();
+        const botText = data.reply || 'No response';
+
+        const botDiv = document.createElement('div');
+        botDiv.className = 'message ai-message';
+        botDiv.textContent = botText;
+        chatArea.appendChild(botDiv);
+        chatArea.scrollTop = chatArea.scrollHeight;
+
+    } catch (err) {
+        const errDiv = document.createElement('div');
+        errDiv.className = 'message ai-message';
+        errDiv.textContent = 'Error contacting server';
+        chatArea.appendChild(errDiv);
+
+    } finally {
+        input.disabled = false;
+        input.focus();
+    }
+});
+
+document.getElementById("language-form").addEventListener("submit", async (e) => {
+    e.preventDefault(); 
+
+    const language = document.getElementById("language-select").value;
+
+    const response = await fetch("/set_language", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ language: language })
+    });
+
+    const data = await response.json(); 
+    //sets current language blue button to selected language
+    document.getElementById("current-language").textContent = "Current language: " + data.target_lang;
+
+}); 
+</script>
+
+</body>
+</html>
