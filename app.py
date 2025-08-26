@@ -6,7 +6,7 @@ load_dotenv()
 
 here = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__, static_folder=os.path.join(here, "static"), template_folder=os.path.join(here, "templates"))
-app.secret_key = "9a65edf4a02cc3caf633bc00ab546a78c17d1b88cf325edbce2eaf50a109de50"
+app.secret_key = "your_secret_key_here (put it in .env)"
 
 @app.route("/", methods=["GET","POST"])
 def home():
@@ -52,3 +52,4 @@ def api_chat():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
